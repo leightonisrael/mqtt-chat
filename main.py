@@ -3,19 +3,19 @@ import time
 import paho.mqtt.client as mqtt
 
 THE_BROKER = "test.mosquitto.org"
-THE_TOPIC = "ufrn/conversa"
+THE_TOPIC = "ufrn/group-chating"
 CLIENT_ID = ""
 
-pessoa = ""
+person = ""
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(THE_TOPIC, qos=0)
 
 def on_message(client, userdata, msg):
-    global pessoa
+    global person
     payload = msg.payload.decode('utf-8')
     sender_name, message = payload.split(': ', 1)
-    if sender_name != pessoa:
+    if sender_name != person:
         print(f"{payload}")
 
 def start_subscriber():
@@ -27,16 +27,16 @@ def start_subscriber():
     client.loop_forever()
 
 def start_publisher():
-    global pessoa
+    global person
     client = mqtt.Client(client_id=CLIENT_ID, clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
     client.username_pw_set(None, password=None)
     client.connect(THE_BROKER, port=1883, keepalive=60)
     client.loop_start()
 
-    pessoa = input("Digite seu nome: ")
+    person = input("Type your name: ")
     while True:
         msg_to_be_sent = input("")
-        client.publish(THE_TOPIC, payload=f"{pessoa}: {msg_to_be_sent}".encode('utf-8'), qos=0, retain=False)
+        client.publish(THE_TOPIC, payload=f"{person}: {msg_to_be_sent}".encode('utf-8'), qos=0, retain=False)
 
     client.loop_stop()
 

@@ -2,7 +2,7 @@
 
 Activity in the subject of Communication Technologies for the Internet of Things.
 
-The question is in this (link[https://hackmd.io/@ramonfontes/iot_lab2]). It consists of creating a group chat with basic MQTT concepts.
+The question is in this [link](https://hackmd.io/@ramonfontes/iot_lab2). It consists of creating a group chat with basic MQTT concepts.
 
 ## Prerequisites
 - Python installed
